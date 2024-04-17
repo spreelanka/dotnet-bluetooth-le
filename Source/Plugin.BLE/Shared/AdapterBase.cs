@@ -74,7 +74,7 @@ namespace Plugin.BLE.Abstractions
         /// Default: <see cref="ScanMode.LowPower"/> 
         /// </summary>
         public ScanMode ScanMode { get; set; } = ScanMode.LowPower;
-        
+
         /// <summary>
         /// Scan match mode defines how agressively we look for adverts
         /// </summary>
@@ -184,8 +184,13 @@ namespace Plugin.BLE.Abstractions
             if (device == null)
                 throw new ArgumentNullException(nameof(device));
 
-            if (device.State == DeviceState.Connected)
+            if (device.State == DeviceState.Connecting)
                 return;
+
+            if (device.State == DeviceState.Connected)//|| device.State == DeviceState.Limited)
+                return;
+
+
 
             using (var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken))
             {
@@ -334,7 +339,7 @@ namespace Plugin.BLE.Abstractions
                 ErrorMessage = errorMessage
             });
         }
-        
+
         /// <inheritdoc/>
         public abstract Task BondAsync(IDevice device);
 
@@ -359,7 +364,7 @@ namespace Plugin.BLE.Abstractions
             }
 
             var connectedDevice = await ConnectToKnownDeviceNativeAsync(deviceGuid, connectParameters, cancellationToken);
-            if (!DiscoveredDevicesRegistry.ContainsKey(deviceGuid)) 
+            if (!DiscoveredDevicesRegistry.ContainsKey(deviceGuid))
                 DiscoveredDevicesRegistry.TryAdd(deviceGuid, connectedDevice);
 
             return connectedDevice;
