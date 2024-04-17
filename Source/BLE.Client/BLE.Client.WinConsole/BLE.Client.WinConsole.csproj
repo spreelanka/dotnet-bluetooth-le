@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Plugin.BLE\Plugin.BLE.csproj" />
+    <ProjectReference Include="..\..\Plugin.BLE\Plugin.BLE.csproj">
+      <ReferenceSourceTarget></ReferenceSourceTarget>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
