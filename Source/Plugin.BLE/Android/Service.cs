@@ -20,7 +20,7 @@ namespace Plugin.BLE.Android
             : base(device, nativeService)
         {
             _gatt = gatt;
-            gatt.RequestMtu(200);
+            gatt.RequestMtu(517); // usable max 512
             _gattCallback = gattCallback;
         }
 
