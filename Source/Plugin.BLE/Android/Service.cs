@@ -20,7 +20,7 @@ namespace Plugin.BLE.Android
             : base(device, nativeService)
         {
             _gatt = gatt;
-            gatt.RequestMtu(517); // usable max 512
+            gatt.RequestMtu(247); // Optimal for 3 AAC frames (~71 bytes each)
             _gattCallback = gattCallback;
         }
 
